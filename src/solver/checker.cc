@@ -60,8 +60,12 @@ OPTIONS:
                           we use the adagrad optimization. 
                                                                                                  
   -v <validate_file>   :  Path of the validation data file. This option will be empty by default, 
-                          and in this way, the xLearn will not perform validation. 
-                                                                                              
+                          and in this way, the xLearn will not perform validation.
+
+  -w <weight_file>     :  Path of the importance weights file for each training data,
+
+  -wv <weight_file>    :  Path of the validation file of importance weights for each validation data.
+
   -m <model_file>      :  Path of the model checkpoint file. On default, the model file name will be. 
                           set to 'train_file' + '.model'. If we set this value to 'none', the xLearn will 
                           not dump the model checkpoint after training. 
@@ -169,6 +173,8 @@ void Checker::Initialize(bool is_train, int argc, char* argv[]) {
     menu_.push_back(std::string("-x"));
     menu_.push_back(std::string("-v"));
     menu_.push_back(std::string("-p"));
+    menu_.push_back(std::string("-w"));
+    menu_.push_back(std::string("-wv"));
     menu_.push_back(std::string("-m"));
     menu_.push_back(std::string("-t"));
     menu_.push_back(std::string("-l"));
@@ -656,7 +662,7 @@ bool Checker::check_train_param(HyperParam& hyper_param) {
       hyper_param.opt_type.compare("ftrl") != 0 &&
       hyper_param.opt_type.compare("adagrad") != 0) {
     Color::print_error(
-      StringPrintf("Unknow optimization method: %s.",
+      StringPrintf("Unknown optimization method: %s.",
         hyper_param.opt_type.c_str())
     );
     bo = false;
