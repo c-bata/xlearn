@@ -50,3 +50,6 @@ build_unix/*
 *.Rhistory
 *.tar.gz
 xlearn/*
+
+# Python
+*.egg-info/
